@@ -3239,10 +3239,11 @@ class CandidatesUI extends UserInterface
 
     private function findDuplicateCandidateSearch()
     {
-        $duplicateCandidateID = $_GET['candidateID'];
-        if ($duplicateCandidateID == "") {
-            $duplicateCandidateID = $_POST['candidateID'];
+        $duplicateCandidateID = $this->getSanitisedInput('candidateID', $_GET) ?? '';
+        if ($duplicateCandidateID === '') {
+            $duplicateCandidateID = $this->getSanitisedInput('candidateID', $_POST);
         }
+
         $query = $this->getSanitisedInput('wildCardString', $_POST);
         $mode = $this->getSanitisedInput('mode', $_POST);
 
@@ -3264,20 +3265,18 @@ class CandidatesUI extends UserInterface
 
         foreach ($rs as $rowIndex => $row) {
             $rs[$rowIndex]['duplicateCandidateID'] = $duplicateCandidateID;
-            if ($candidates->checkIfLinked($rs[$rowIndex]['candidateID'], $duplicateCandidateID)) {
+
+            if (isset($row['candidateID']) && $candidates->checkIfLinked($row['candidateID'], $duplicateCandidateID)) {
                 $rs[$rowIndex]['linked'] = true;
             } else {
                 $rs[$rowIndex]['linked'] = false;
             }
 
-            if ($row['isHot'] == 1) {
-                $rs[$rowIndex]['linkClass'] = 'jobLinkHot';
-            } else {
-                $rs[$rowIndex]['linkClass'] = 'jobLinkCold';
-            }
+            $isHot = $row['isHot'] ?? 0;
+            $rs[$rowIndex]['linkClass'] = ($isHot == 1) ? 'jobLinkHot' : 'jobLinkCold';
         }
 
-        if (! eval(Hooks::get('DUPLICATE_ON_LINK_DUPLICATES'))) {
+        if (!eval(Hooks::get('DUPLICATE_ON_LINK_DUPLICATES') ?: 'return true;')) {
             return;
         }
 

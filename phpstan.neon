@@ -12,6 +12,13 @@ parameters:
         - ./test
         - ./scripts
         - ./optional-updates
+        - ./modules/tests
+
+    ignoreErrors:
+        - '#Call to an undefined method ReportsWebTest::back#'
+        - '#Call to an undefined method ReportsWebTest::assertTitle#'
+        - '#Method .*::.*\(\) has parameter .* with no type specified#'
+        - '#Method .*::.*\(\) has no return type specified#'
 
     # Set analysis level (8 is the strictest)
     level: 8

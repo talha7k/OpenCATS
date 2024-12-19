@@ -63,11 +63,11 @@ use OpenCATS\UI\QuickActionMenu;
                                 </td>
                             </tr>
 
-                            <?php for ($i = 0; $i < intval(count($this->extraFieldRS)/2); $i++): ?>
-                               <tr>
-                                    <td class="vertical"><?php $this->_($this->extraFieldRS[$i]['fieldName']); ?>:</td>
-                                    <td class="data"><?php echo($this->extraFieldRS[$i]['display']); ?></td>
-                               </tr>
+                            <?php for ($i = 0; $i < (int) (count($this->extraFieldRS) / 2); $i++): ?>
+                            <tr>
+                            <td class="vertical"><?php $this->_($this->extraFieldRS[$i]['fieldName']); ?>:</td>
+                            <td class="data"><?php echo($this->extraFieldRS[$i]['display']); ?></td>
+                            </tr>
                             <?php endfor; ?>
 
                             <!-- /CONTACT INFO -->
@@ -120,11 +120,16 @@ use OpenCATS\UI\QuickActionMenu;
 
                         <!-- CONTACT INFO -->
 
-                            <?php for ($i = (intval(count($this->extraFieldRS))/2); $i < (count($this->extraFieldRS)); $i++): ?>
-                                <tr>
-                                    <td class="vertical"><?php $this->_($this->extraFieldRS[$i]['fieldName']); ?>:</td>
-                                    <td class="data"><?php echo($this->extraFieldRS[$i]['display']); ?></td>                                </tr>
+                        <?php
+                        for ($i = (int) (count($this->extraFieldRS) / 2); $i < count($this->extraFieldRS); $i++): ?>
+                            <tr>
+                            <td class="vertical"><?php $this->_($this->extraFieldRS[$i]['fieldName']); ?>:</td>
+                            <td class="data"><?php echo($this->extraFieldRS[$i]['display']); ?></td>
+                            </tr>
                             <?php endfor; ?>
+
+
+
 
                         <!-- /CONTACT INFO -->
                         </table>

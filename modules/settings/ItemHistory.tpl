@@ -32,7 +32,7 @@
                                             <?php $this->_($field); ?>
                                         </td>
                                         <td class="tdData">
-                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars($value))); ?></div>
+                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars(($value) ?? ""))); ?></div>
                                         </td>
                                     </tr>
                                 <?php else: ?>
@@ -41,7 +41,7 @@
                                             <?php $this->_($field); ?>
                                         </td>
                                         <td class="tdData">
-                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars($value))); ?></div>
+                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars(($value) ?? ""))); ?></div>
                                         </td>
                                 <?php endif; ?>
                               <?php endif; ?>
@@ -80,7 +80,7 @@
                                             <?php $this->_($field); ?>
                                         </td>
                                         <td class="tdData">
-                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars($value))); ?></div>
+                                            <div id="databaseValue<?php $this->_($field); ?>"><?php echo(nl2br(htmlspecialchars(($value) ?? ""))); ?></div>
                                         </td>
                                     </tr>
                                   <?php endif; ?>
@@ -120,7 +120,7 @@
                             {
                                 document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").style.fontWeight = 'bold';
                                 document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").style.color='#ff6c00';
-                                document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").innerHTML = "<?php echo(str_replace(chr(13).chr(10), '', nl2br(htmlspecialchars($revision['previousValue'])))); ?>";
+                                document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").innerHTML = "<?php echo(str_replace(chr(13).chr(10), '', nl2br(htmlspecialchars(($revision['previousValue']) ?? "")))); ?>";
                             }
                         <?php endif; ?>
                     <?php endforeach; ?>
@@ -141,7 +141,7 @@
                             {
                                 document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").style.fontWeight = 'bold';
                                 document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").style.color='#ff6c00';
-                                document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").innerHTML = "<?php echo(str_replace(chr(13).chr(10), '', nl2br(htmlspecialchars($revision['newValue'])))); ?>";
+                                document.getElementById("databaseValue<?php $this->_($revision['theField']); ?>").innerHTML = "<?php echo(str_replace(chr(13).chr(10), '', nl2br(htmlspecialchars(($revision['newValue']) ?? "")))); ?>";
                             }
                         <?php endif; ?>
                     <?php endfor; ?>

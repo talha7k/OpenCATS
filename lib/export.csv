@@ -1,0 +1,12 @@
+<br />
+<b>Deprecated</b>:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in <b>/var/www/html/OpenCATS/lib/DataGrid.php</b> on line <b>1352</b><br />
+<br />
+<b>Deprecated</b>:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in <b>/var/www/html/OpenCATS/lib/DataGrid.php</b> on line <b>1352</b><br />
+<br />
+<b>Deprecated</b>:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in <b>/var/www/html/OpenCATS/lib/DataGrid.php(1344) : eval()'d code</b> on line <b>3</b><br />
+﻿First Name,Last Name,E-Mail,2nd E-Mail,Home Phone,Cell Phone,Work Phone,Address,City,State,Zip,Misc Notes,Web Site,Key Skills,Source,Available,Current Employer,Current Pay,Desired Pay,Can Relocate,Owner,Created,Modified,RTW
+"Russell","Hay","russellh@ysmail.net","russellh@ysmail.net","+447967275932","","796-727-5932","Wheatenhurst Cottage, Hyde Lane","Whitminster","","GL2 7NP","Candidate submitted these notes with first application:","","chap","(none)","","","","","No","CATS Administrator","2022-08-31 15:30:11","2024-12-18 14:32:24","15-02-23"
+"banana","mike","bananamike@gmail.com","","+447967275932","","","Wheatenhurst Cottage
+Hyde Lane","Whitminster","Gloucestershire","GL2 7NP","Candidate submitted these notes with first application: 
+
+","","hhh","Online Careers Website","","","","","No","CATS Automated","2022-09-13 15:26:09","2024-11-27 18:52:55",""

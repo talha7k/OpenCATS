@@ -19,6 +19,27 @@
  */
 class Template
 {
+    public $EEOReportStatistics;
+    public $urlEthnicGraph;
+    public $urlVeteranGraph;
+    public $urlGenderGraph;
+    public $urlDisabilityGraph;
+    public $revisionRS;
+    public $duplicateCandidateID;
+    public $statusChanged;
+    public $OSType;
+    public $databaseVersion;
+    public $installationDirectory;
+    public $schemaVersions;
+    public $reportParameters;
+    public $extraFieldSettingsJobOrdersRS;
+    public $extraFieldSettingsCandidatesRS;
+    public $extraFieldSettingsCompaniesRS;
+    public $extraFieldSettingsContactsRS;
+    public $extraFieldTypes;
+    public $day;
+    public $versionCheck;
+    public $versionCheckPref;
     public $activityType;
     public $modePeriod = "all";
     public $modeStatus = "";

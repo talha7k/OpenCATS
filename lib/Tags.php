@@ -106,24 +106,29 @@ class Tags
 
     public function add($title, $description, $parent_tag_id = null)
     {
+        // Validate $parent_tag_id to ensure it's an integer or NULL
+        if (!is_numeric($parent_tag_id) || (int)$parent_tag_id < 0) {
+            $parent_tag_id = null; // Set to NULL if invalid
+        }
+
         $sql = sprintf(
             "INSERT INTO
-                tag
+            tag
             (
                 tag_parent_id,
-                title ,
+                title,
                 description,
                 site_id
-            ) VALUES (
-                %s,
-                %s,
-                %s,
-                %s
-            )",
-            $this->_db->makeQueryStringOrNULL($parent_tag_id),
-            $this->_db->makeQueryStringOrNULL($title),
-            $this->_db->makeQueryStringOrNULL($description),
-            $this->_siteID
+        ) VALUES (
+            %s,
+            %s,
+            %s,
+            %s
+        )",
+        $this->_db->makeQueryStringOrNULL($parent_tag_id),
+                       $this->_db->makeQueryStringOrNULL($title),
+                       $this->_db->makeQueryStringOrNULL($description),
+                       $this->_siteID
         );
 
         $queryResult = $this->_db->query($sql);
@@ -137,6 +142,7 @@ class Tags
             'tag_title' => $title,
         ];
     }
+
 
     /**
      * Returns all relevent template data for all templates.

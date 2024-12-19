@@ -39,19 +39,19 @@ include_once(LEGACY_ROOT . '/lib/FileUtility.php');
  */
 class DocumentToText
 {
-    private $_linesArray = [];
+    protected $_linesArray = [];
 
-    private $_linesString = '';
+    protected $_linesString = '';
 
-    private $_rawOutput = '';
+    protected $_rawOutput = '';
 
-    private $_fileName = '';
+    protected $_fileName = '';
 
-    private $_returnCode = -1;
+    protected $_returnCode = -1;
 
     private bool $_isError = false;
 
-    private $_error = '';
+    protected $_error = '';
 
     /**
      * Returns a document type based on its file extension and content type.

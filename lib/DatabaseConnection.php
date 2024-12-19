@@ -38,15 +38,15 @@ class DatabaseConnection
 {
     private static ?\DatabaseConnection $_instance = null;
 
-    private $_connection = null;
+    protected $_connection = null;
 
-    private $_queryResult = null;
+    protected $_queryResult = null;
 
-    private $_timeZone;
+    protected $_timeZone;
 
-    private $_dateDMY;
+    protected $_dateDMY;
 
-    private $_inTransaction;
+    protected $_inTransaction;
 
     /**
      * Returns an instance of DatabaseConnection.
