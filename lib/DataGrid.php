@@ -342,15 +342,32 @@ class DataGrid
          */
         public static function getFromRequest()
         {
-            if (! isset($_REQUEST['i']) || ! isset($_REQUEST['p'])) {
-                trigger_error('getFromRequest datagrid failed : no request variables i or p set.');
+            if (!isset($_REQUEST['i']) || !isset($_REQUEST['p'])) {
+                trigger_error('getFromRequest datagrid failed: no request variables i or p set.');
             }
 
-            $indentifier = $_REQUEST['i'];
-            $parameters = json_decode($_REQUEST['p'], true, 512, JSON_THROW_ON_ERROR);
+            $identifier = $_REQUEST['i'];
+            $input = $_REQUEST['p'];
 
-            return self::get($indentifier, $parameters);
+            // Detect serialized PHP data or JSON
+            $parameters = [];
+            try {
+                if (self::isSerialized($input)) {
+                    $parameters = unserialize($input);
+                } else {
+                    $parameters = json_decode($input, true, 512, JSON_THROW_ON_ERROR);
+                }
+            } catch (JsonException $e) {
+                error_log("JSON decode error in getFromRequest: " . $e->getMessage());
+                error_log("Invalid JSON string: " . $input);
+            } catch (Exception $e) {
+                error_log("Unserialize error in getFromRequest: " . $e->getMessage());
+                error_log("Invalid serialized string: " . $input);
+            }
+
+            return self::get($identifier, $parameters);
         }
+
 
         public function getInstanceName()
         {
