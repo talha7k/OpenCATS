@@ -69,19 +69,11 @@ RUN mkdir -p /var/www/html/temp /var/www/html/upload /var/www/html/attachments \
     && chmod -R 755 /var/www/html/upload \
     && chmod -R 755 /var/www/html/attachments
 
-# Copy entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 # Copy Apache virtual host configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-
-# Copy start script
-COPY start.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/start.sh
 
 # Expose port 80 for HTTP
 EXPOSE 80
 
-# Use start script which starts Apache immediately and runs database setup in background
-CMD ["/usr/local/bin/start.sh"]
+# Start Apache
+CMD ["apache2-foreground"]
