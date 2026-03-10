@@ -22,10 +22,19 @@ EOF
 chmod 644 /var/www/html/healthcheck.php
 echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] healthcheck.php created! Healthchecks should now pass.${NC}"
 
-# Fix Apache MPM issue - disable mpm_event if it's loaded alongside mpm_prefork
-if [ -f /etc/apache2/mods-enabled/mpm_event.load ] && [ -f /etc/apache2/mods-enabled/mpm_prefork.load ]; then
-    echo "Fixing MPM conflict - disabling mpm_event..."
-    a2dismod mpm_event 2>/dev/null || true
+# Fix Apache MPM conflict - ensure only mpm_prefork is loaded
+echo -e "${YELLOW}Checking Apache MPM configuration...${NC}"
+MPM_LOADED=$(ls /etc/apache2/mods-enabled/mpm_*.load 2>/dev/null | wc -l)
+
+if [ "$MPM_LOADED" -gt 1 ]; then
+    echo -e "${RED}Multiple MPMs detected ($MPM_LOADED). Fixing MPM conflict...${NC}"
+    echo "Disabling all MPMs..."
+    a2dismod mpm_event mpm_prefork mpm_worker 2>/dev/null || true
+    echo "Enabling mpm_prefork (required for PHP)..."
+    a2enmod mpm_prefork
+    echo -e "${GREEN}MPM conflict resolved. Only mpm_prefork is now enabled.${NC}"
+else
+    echo -e "${GREEN}MPM configuration is correct ($MPM_LOADED MPM loaded).${NC}"
 fi
 
 # Function to wait for MySQL/MariaDB to be ready
@@ -427,10 +436,9 @@ main() {
     return $exit_code
 }
 
-# Run main function - Apache is already started by start.sh
+# Run main function
 echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] Running database setup...${NC}"
 main
 
-# Exit after setup completes
-echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database setup completed. Apache is running in foreground.${NC}"
+# Return exit code to caller (start.sh)
 exit $?

@@ -39,8 +39,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     zip
 
 # Enable Apache modules and fix MPM conflict
-RUN a2enmod rewrite headers \
-    && a2dismod mpm_event 2>/dev/null || true
+# Disable ALL MPMs first, then enable ONLY mpm_prefork (required for mod_php)
+RUN a2dismod mpm_event mpm_prefork mpm_worker 2>/dev/null || true \
+    && a2enmod mpm_prefork \
+    && a2enmod rewrite headers
 
 # Configure Apache
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
@@ -72,8 +74,17 @@ RUN mkdir -p /var/www/html/temp /var/www/html/upload /var/www/html/attachments \
 # Copy Apache virtual host configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
+# Copy startup scripts
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY start.sh /usr/local/bin/start.sh
+
+# Make scripts executable
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+    && chmod +x /usr/local/bin/start.sh
+
 # Expose port 80 for HTTP
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Set entrypoint and command
+ENTRYPOINT ["/usr/local/bin/start.sh"]
+CMD []
