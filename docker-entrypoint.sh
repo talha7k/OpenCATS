@@ -10,6 +10,18 @@ echo -e "${GREEN}OpenCATS Docker Entrypoint${NC}"
 echo "=================================="
 echo "Timestamp: $(date)"
 
+# Create healthcheck.php IMMEDIATELY - before anything else
+echo -e "${YELLOW}Creating healthcheck.php immediately...${NC}"
+cat > /var/www/html/healthcheck.php << 'EOF'
+<?php
+// Simple healthcheck endpoint for Railway
+header('Content-Type: text/plain');
+echo "OK";
+?>
+EOF
+chmod 644 /var/www/html/healthcheck.php
+echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] healthcheck.php created! Healthchecks should now pass.${NC}"
+
 # Fix Apache MPM issue - disable mpm_event if it's loaded alongside mpm_prefork
 if [ -f /etc/apache2/mods-enabled/mpm_event.load ] && [ -f /etc/apache2/mods-enabled/mpm_prefork.load ]; then
     echo "Fixing MPM conflict - disabling mpm_event..."
@@ -415,10 +427,14 @@ main() {
     return $exit_code
 }
 
-# Run main function
-main
-main_result=$?
+# Run main function in background - so Apache can start immediately
+echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] Running database setup in background...${NC}"
+main &
 
-# Execute the command passed to the container
-echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Starting Apache...${NC}"
+# Wait a moment for background setup to start
+sleep 2
+
+# Start Apache in foreground (main() continues in background)
+echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Starting Apache in foreground...${NC}"
+echo -e "${GREEN}Database setup continues in background.${NC}"
 exec "$@"

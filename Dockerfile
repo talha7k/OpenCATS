@@ -79,8 +79,5 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 # Expose port 80 for HTTP
 EXPOSE 80
 
-# Set entrypoint
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-
-# Start Apache in foreground
-CMD ["apache2-foreground"]
+# Start Apache in foreground (entrypoint runs inline)
+CMD ["/bin/bash", "-c", "/usr/local/bin/docker-entrypoint.sh && apache2-foreground"]
