@@ -10,6 +10,12 @@ NC='\033[0m' # No Color
 echo -e "${GREEN}OpenCATS Docker Entrypoint${NC}"
 echo "=================================="
 
+# Fix Apache MPM issue - disable mpm_event if it's loaded alongside mpm_prefork
+if [ -f /etc/apache2/mods-enabled/mpm_event.load ] && [ -f /etc/apache2/mods-enabled/mpm_prefork.load ]; then
+    echo "Fixing MPM conflict - disabling mpm_event..."
+    a2dismod mpm_event 2>/dev/null || true
+fi
+
 # Function to wait for MySQL/MariaDB to be ready
 wait_for_mysql() {
     echo -e "${YELLOW}Waiting for MySQL to be ready...${NC}"
