@@ -34,9 +34,11 @@ wait_for_mysql() {
 
 # Function to check if database is already initialized
 is_database_initialized() {
-    # Check if the config table exists and has data
-    result=$(mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" -D"${DATABASE_NAME}" -e "SHOW TABLES LIKE 'config';" 2>&1)
-    if [[ $result == *"config"* ]]; then
+    # Check if the access_level table exists (core OpenCATS table)
+    local table_count
+    table_count=$(mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" -D"${DATABASE_NAME}" -N -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '${DATABASE_NAME}' AND table_name = 'access_level';" 2>/dev/null || echo "0")
+    
+    if [ "$table_count" -gt 0 ]; then
         return 0  # Database is initialized
     fi
     return 1  # Database is not initialized
