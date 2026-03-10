@@ -38,10 +38,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     xml \
     zip
 
-# Enable Apache modules (disable mpm_event, enable mpm_prefork for PHP)
-RUN a2enmod rewrite headers \
-    && a2dismod mpm_event || true \
-    && a2enmod mpm_prefork
+# Enable Apache modules
+RUN a2enmod rewrite headers
 
 # Configure Apache
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
