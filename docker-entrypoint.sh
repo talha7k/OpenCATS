@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 # Colors for output
 RED='\033[0;31m'
@@ -9,6 +8,7 @@ NC='\033[0m' # No Color
 
 echo -e "${GREEN}OpenCATS Docker Entrypoint${NC}"
 echo "=================================="
+echo "Timestamp: $(date)"
 
 # Fix Apache MPM issue - disable mpm_event if it's loaded alongside mpm_prefork
 if [ -f /etc/apache2/mods-enabled/mpm_event.load ] && [ -f /etc/apache2/mods-enabled/mpm_prefork.load ]; then
@@ -22,20 +22,24 @@ wait_for_mysql() {
 
     max_attempts=30
     attempt=0
+    timeout_seconds=120
 
     while [ $attempt -lt $max_attempts ]; do
-        if mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" -e "SELECT 1" > /dev/null 2>&1; then
-            echo -e "${GREEN}MySQL is ready!${NC}"
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] Attempt $attempt/$max_attempts: Testing MySQL connection to ${DATABASE_HOST}..."
+
+        if mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" --connect-timeout=5 -e "SELECT 1" > /dev/null 2>&1; then
+            echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] MySQL is ready!${NC}"
             return 0
         fi
 
         attempt=$((attempt + 1))
-        echo "Attempt $attempt/$max_attempts: Waiting for MySQL..."
-        sleep 2
+        if [ $attempt -lt $max_attempts ]; then
+            sleep 2
+        fi
     done
 
-    echo -e "${RED}Failed to connect to MySQL after $max_attempts attempts${NC}"
-    exit 1
+    echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Failed to connect to MySQL after $max_attempts attempts${NC}"
+    return 1
 }
 
 # Function to check if database is already initialized
@@ -55,19 +59,30 @@ initialize_database() {
     echo -e "${YELLOW}Initializing database...${NC}"
 
     # Create database if it doesn't exist
-    mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" -e "CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] Creating database ${DATABASE_NAME} if not exists..."
+    if mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" --connect-timeout=10 -e "CREATE DATABASE IF NOT EXISTS ${DATABASE_NAME} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;" 2>&1; then
+        echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database created successfully${NC}"
+    else
+        echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Error creating database!${NC}"
+        return 1
+    fi
 
     # Import the schema
     if [ -f "/var/www/html/db/cats_schema.sql" ]; then
-        echo "Importing cats_schema.sql..."
-        mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" "${DATABASE_NAME}" < /var/www/html/db/cats_schema.sql
-        echo -e "${GREEN}Database schema imported successfully!${NC}"
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] Importing cats_schema.sql..."
+        if mysql -h"${DATABASE_HOST}" -u"${DATABASE_USER}" -p"${DATABASE_PASS}" "${DATABASE_NAME}" --connect-timeout=10 < /var/www/html/db/cats_schema.sql 2>&1; then
+            echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database schema imported successfully!${NC}"
+        else
+            echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Error importing database schema!${NC}"
+            return 1
+        fi
     else
-        echo -e "${RED}Error: db/cats_schema.sql not found!${NC}"
-        exit 1
+        echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Error: db/cats_schema.sql not found!${NC}"
+        return 1
     fi
 
-    echo -e "${GREEN}Database initialization complete!${NC}"
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database initialization complete!${NC}"
+    return 0
 }
 
 # Function to generate config.php from environment variables
@@ -77,9 +92,11 @@ generate_config() {
     # If config.php doesn't exist, create it from the template
     if [ ! -f "/var/www/html/config.php" ]; then
         if [ -f "/var/www/html/config.php.example" ]; then
+            echo "[$(date +'%Y-%m-%d %H:%M:%S')] Copying config.php.example to config.php..."
             cp /var/www/html/config.php.example /var/www/html/config.php
         else
             # Create a minimal config.php
+            echo "[$(date +'%Y-%m-%d %H:%M:%S')] Creating minimal config.php from template..."
             cat > /var/www/html/config.php << 'EOF'
 <?php
 /* License key. */
@@ -284,6 +301,7 @@ EOF
 
     # Use sed to replace values - works on both Alpine and Debian
     # The syntax -i.bak creates a backup, then we remove it. This is compatible with both systems.
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] Updating config.php with environment variables..."
     sed -i.bak "s|PLACEHOLDER_LICENSE_KEY|${LICENSE_KEY}|g" /var/www/html/config.php
     sed -i.bak "s|PLACEHOLDER_DB_USER|${DATABASE_USER}|g" /var/www/html/config.php
     sed -i.bak "s|PLACEHOLDER_DB_PASS|${DATABASE_PASS}|g" /var/www/html/config.php
@@ -293,7 +311,7 @@ EOF
     # Remove the backup file created by sed
     rm -f /var/www/html/config.php.bak
 
-    echo -e "${GREEN}config.php generated successfully!${NC}"
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] config.php generated successfully!${NC}"
 }
 
 # Function to set proper permissions
@@ -301,63 +319,106 @@ set_permissions() {
     echo -e "${YELLOW}Setting proper file permissions...${NC}"
 
     # Set ownership
-    chown -R www-data:www-data /var/www/html/temp
-    chown -R www-data:www-data /var/www/html/upload
-    chown -R www-data:www-data /var/www/html/attachments
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] Setting ownership..."
+    chown -R www-data:www-data /var/www/html/temp 2>&1 || true
+    chown -R www-data:www-data /var/www/html/upload 2>&1 || true
+    chown -R www-data:www-data /var/www/html/attachments 2>&1 || true
 
     # Set permissions
-    chmod -R 755 /var/www/html/temp
-    chmod -R 755 /var/www/html/upload
-    chmod -R 755 /var/www/html/attachments
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] Setting directory permissions..."
+    chmod -R 755 /var/www/html/temp 2>&1 || true
+    chmod -R 755 /var/www/html/upload 2>&1 || true
+    chmod -R 755 /var/www/html/attachments 2>&1 || true
 
     # Make sure config.php is readable
-    chmod 644 /var/www/html/config.php
+    chmod 644 /var/www/html/config.php 2>&1 || true
 
-    echo -e "${GREEN}Permissions set successfully!${NC}"
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Permissions set successfully!${NC}"
+}
+
+# Function to create healthcheck.php
+create_healthcheck() {
+    echo -e "${YELLOW}Creating healthcheck.php...${NC}"
+
+    cat > /var/www/html/healthcheck.php << 'EOF'
+<?php
+// Simple healthcheck endpoint for Railway
+header('Content-Type: text/plain');
+echo "OK";
+?>
+EOF
+
+    chmod 644 /var/www/html/healthcheck.php
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] healthcheck.php created successfully!${NC}"
 }
 
 # Main execution flow
 main() {
+    local exit_code=0
+
     # Validate required environment variables
     if [ -z "${DATABASE_HOST}" ] || [ -z "${DATABASE_USER}" ] || [ -z "${DATABASE_NAME}" ]; then
-        echo -e "${RED}Error: Required environment variables not set!${NC}"
+        echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Error: Required environment variables not set!${NC}"
         echo "Required: DATABASE_HOST, DATABASE_USER, DATABASE_NAME"
-        exit 1
-    fi
-
-    # Set defaults
-    export DATABASE_PASS="${DATABASE_PASS:-}"
-    export LICENSE_KEY="${LICENSE_KEY:-3163GQ-54ISGW-14E4SHD-ES9ICL-X02DTG-GYRSQ6}"
-
-    echo "Database Host: ${DATABASE_HOST}"
-    echo "Database Name: ${DATABASE_NAME}"
-    echo "Database User: ${DATABASE_USER}"
-    echo "License Key: ${LICENSE_KEY}"
-
-    # Wait for MySQL to be ready
-    wait_for_mysql
-
-    # Generate config.php
-    generate_config
-
-    # Check if database is initialized
-    if is_database_initialized; then
-        echo -e "${GREEN}Database already initialized. Skipping schema import.${NC}"
+        exit_code=1
     else
-        # Initialize database
-        initialize_database
+        # Set defaults
+        export DATABASE_PASS="${DATABASE_PASS:-}"
+        export LICENSE_KEY="${LICENSE_KEY:-3163GQ-54ISGW-14E4SHD-ES9ICL-X02DTG-GYRSQ6}"
+
+        echo "[$(date +'%Y-%m-%d %H:%M:%S')] Configuration:"
+        echo "  Database Host: ${DATABASE_HOST}"
+        echo "  Database Name: ${DATABASE_NAME}"
+        echo "  Database User: ${DATABASE_USER}"
+        echo "  License Key: ${LICENSE_KEY}"
+
+        # Create healthcheck.php early
+        create_healthcheck
+
+        # Wait for MySQL to be ready
+        if wait_for_mysql; then
+            # Generate config.php
+            if generate_config; then
+                # Check if database is initialized
+                if is_database_initialized; then
+                    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database already initialized. Skipping schema import.${NC}"
+                else
+                    # Initialize database
+                    if ! initialize_database; then
+                        echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Database initialization failed!${NC}"
+                        exit_code=1
+                    fi
+                fi
+
+                # Set proper permissions
+                set_permissions
+            else
+                echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] Config generation failed!${NC}"
+                exit_code=1
+            fi
+        else
+            echo -e "${RED}[$(date +'%Y-%m-%d %H:%M:%S')] MySQL connection failed!${NC}"
+            exit_code=1
+        fi
     fi
 
-    # Set proper permissions
-    set_permissions
+    if [ $exit_code -eq 0 ]; then
+        echo -e "${GREEN}==================================${NC}"
+        echo -e "${GREEN}OpenCATS initialization complete!${NC}"
+        echo -e "${GREEN}==================================${NC}"
+    else
+        echo -e "${RED}==================================${NC}"
+        echo -e "${RED}OpenCATS initialization had errors!${NC}"
+        echo -e "${RED}==================================${NC}"
+    fi
 
-    echo -e "${GREEN}==================================${NC}"
-    echo -e "${GREEN}OpenCATS initialization complete!${NC}"
-    echo -e "${GREEN}==================================${NC}"
+    return $exit_code
 }
 
 # Run main function
 main
+main_result=$?
 
 # Execute the command passed to the container
+echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Starting Apache...${NC}"
 exec "$@"
