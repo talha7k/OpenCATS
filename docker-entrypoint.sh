@@ -427,14 +427,10 @@ main() {
     return $exit_code
 }
 
-# Run main function in background - so Apache can start immediately
-echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] Running database setup in background...${NC}"
-main &
+# Run main function - Apache is already started by start.sh
+echo -e "${YELLOW}[$(date +'%Y-%m-%d %H:%M:%S')] Running database setup...${NC}"
+main
 
-# Wait a moment for background setup to start
-sleep 2
-
-# Start Apache in foreground (main() continues in background)
-echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Starting Apache in foreground...${NC}"
-echo -e "${GREEN}Database setup continues in background.${NC}"
-exec "$@"
+# Exit after setup completes
+echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database setup completed. Apache is running in foreground.${NC}"
+exit $?

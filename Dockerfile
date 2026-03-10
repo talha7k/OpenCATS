@@ -76,8 +76,12 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Copy Apache virtual host configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
+# Copy start script
+COPY start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start.sh
+
 # Expose port 80 for HTTP
 EXPOSE 80
 
-# Start Apache in foreground (entrypoint runs inline)
-CMD ["/bin/bash", "-c", "/usr/local/bin/docker-entrypoint.sh && apache2-foreground"]
+# Use start script which starts Apache immediately and runs database setup in background
+CMD ["/usr/local/bin/start.sh"]
