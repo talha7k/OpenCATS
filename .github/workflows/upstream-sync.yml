@@ -1,0 +1,24 @@
+name: Scheduled Upstream Sync
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # This runs every night at midnight UTC
+  workflow_dispatch:      # This allows you to run it manually with one click
+
+jobs:
+  sync_latest_from_upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+        with:
+          ref: master  # Your custom branch (OpenCATS uses master)
+          fetch-depth: 0
+
+      - name: Sync upstream changes
+        uses: a2stng/upstream-sync@v2.0
+        with:
+          upstream_repository: opencats/OpenCATS
+          upstream_branch: master  # OpenCATS uses 'master' as primary branch
+          target_branch: master    # Your branch
+          force: false             # Set to true only if you want to overwrite conflicts (dangerous!)
