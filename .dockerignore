@@ -1,0 +1,74 @@
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+*.md
+
+# Documentation
+README.md
+README-testing.md
+CHANGELOG.MD
+Security.MD
+issue_template.md
+
+# CI/CD
+.travis.yml
+phpunit.xml.dist
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+temp/
+cache/
+
+# Testing
+test/
+ci/
+
+# Backup files
+*.bak
+*.backup
+db/*.bak
+
+# Optional updates
+optional-updates/
+
+# Upload and attachment directories (will be created in container)
+upload/*
+attachments/*
+
+# Node modules (if any)
+node_modules/
+
+# Vendor (will be installed during build)
+vendor/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database files
+*.sql
+!db/cats_schema.sql
+
+# Scripts that aren't needed in production
+scripts/
+wsdl/
