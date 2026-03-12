@@ -565,7 +565,9 @@ class awLabel implements awPositionable {
 	 * @param awPoint $p Label center
 	 * @param int $key Text position in the array of texts (default to zero)
 	 */
-	public function drawSpecial(awDrawer $drawer, awPoint $p, $key = 0, $theText) {
+    public function drawSpecial(awDrawer $drawer, awPoint $p, $key = 0, $theText = NULL)
+    {
+        $theTextAW = new awText($theText);
 
     	$theTextAW = new awText($theText);
 

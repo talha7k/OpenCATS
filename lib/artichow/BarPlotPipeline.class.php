@@ -99,7 +99,7 @@ class awBarPlotPipeline extends awPlot implements awLegendable {
 	 * @param int $number Bar plot number
 	 * @param int $depth Bar plot depth in pixels
 	 */
-	public function __construct($values, $identifier = 1, $number = 1, $depth = 0, $maxValue, $drawPercent = true) {
+	public function __construct($values, $identifier = 1, $number = 1, $depth = 0, $maxValue = NULL, $drawPercent = true) {
 
 		parent::__construct();
 

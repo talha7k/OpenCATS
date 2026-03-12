@@ -596,7 +596,7 @@ abstract class awPlot extends awComponent {
 	 * @param array $datay
 	 * @param array $datax
 	 */
-	public function setValues($datay, $datax = NULL) {
+	public function setValues($datay = NULL, $datax = NULL) {
 
 		$this->checkArray($datay);
 
