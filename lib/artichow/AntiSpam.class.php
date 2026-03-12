@@ -60,7 +60,7 @@ class awAntiSpam extends awImage {
 		$number = strlen($letters);
 
 		for($i = 0; $i < $length; $i++) {
-			$this->string .= $letters{mt_rand(0, $number - 1)};
+			$this->string .= $letters[mt_rand(0, $number - 1)];
 		}
 
 		return $this->string;

@@ -253,13 +253,13 @@ class DatabaseConnection
      * column number. If a query is not specified, this method will operate on the
      * last executed query for this instance.
      *
-     * @param string MySQL query or null to operate on the last executed query
-     *               for this instance.
      * @param integer Row number.
      * @param integer Column number.
+     * @param string MySQL query or null to operate on the last executed query
+     *               for this instance.
      * @return array Multi-dimensional associative result set array, or array()
      */
-    public function getColumn($query = null, $row, $column)
+    public function getColumn($row, $column, $query = null)
     {
         if ($query != null)
         {
