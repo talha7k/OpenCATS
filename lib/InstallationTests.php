@@ -182,7 +182,8 @@ class InstallationTests
     /* magic_quotes_runtime cannot be enabled. */
     public static function checkMagicQuotes()
     {
-        if (!self::DEBUG_FAIL && !get_magic_quotes_runtime())
+        // Magic quotes were removed in PHP 5.4+, so this is always disabled in PHP 8+
+        if (!self::DEBUG_FAIL)
         {
             echo '<tr class="pass"><td>PHP.ini: magic_quotes_runtime is disabled.</td></tr>';
             return true;
