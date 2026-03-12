@@ -357,6 +357,16 @@ set_permissions() {
     echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Permissions set successfully!${NC}"
 }
 
+# Function to create INSTALL_BLOCK file if database is initialized
+create_install_block() {
+    if [ ! -f "/var/www/html/INSTALL_BLOCK" ]; then
+        echo -e "${YELLOW}Creating INSTALL_BLOCK file to disable installer...${NC}"
+        touch /var/www/html/INSTALL_BLOCK
+        chmod 644 /var/www/html/INSTALL_BLOCK
+        echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] INSTALL_BLOCK created!${NC}"
+    fi
+}
+
 # Function to create healthcheck.php
 create_healthcheck() {
     echo -e "${YELLOW}Creating healthcheck.php...${NC}"
@@ -403,6 +413,8 @@ main() {
                 # Check if database is initialized
                 if is_database_initialized; then
                     echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] Database already initialized. Skipping schema import.${NC}"
+                    # Create INSTALL_BLOCK to prevent installer from running
+                    create_install_block
                 else
                     # Initialize database
                     if ! initialize_database; then
