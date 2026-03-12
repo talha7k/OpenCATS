@@ -110,8 +110,8 @@ initialize_database() {
 generate_config() {
     echo -e "${YELLOW}Generating config.php from environment variables...${NC}"
 
-    # If config.php doesn't exist, create it from the template
-    if [ ! -f "/var/www/html/config.php" ]; then
+    # If config.php doesn't exist or is empty, create it from the template
+    if [ ! -f "/var/www/html/config.php" ] || [ ! -s "/var/www/html/config.php" ]; then
         if [ -f "/var/www/html/config.php.example" ]; then
             echo "[$(date +'%Y-%m-%d %H:%M:%S')] Copying config.php.example to config.php..."
             cp /var/www/html/config.php.example /var/www/html/config.php
