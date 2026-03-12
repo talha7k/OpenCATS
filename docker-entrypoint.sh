@@ -323,14 +323,30 @@ EOF
     # Use sed to replace values - works on both Alpine and Debian
     # The syntax -i.bak creates a backup, then we remove it. This is compatible with both systems.
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] Updating config.php with environment variables..."
-    sed -i.bak "s|PLACEHOLDER_LICENSE_KEY|${LICENSE_KEY}|g" /var/www/html/config.php
-    sed -i.bak "s|PLACEHOLDER_DB_USER|${DATABASE_USER}|g" /var/www/html/config.php
-    sed -i.bak "s|PLACEHOLDER_DB_PASS|${DATABASE_PASS}|g" /var/www/html/config.php
-    sed -i.bak "s|PLACEHOLDER_DB_HOST|${DATABASE_HOST}|g" /var/www/html/config.php
-    sed -i.bak "s|PLACEHOLDER_DB_NAME|${DATABASE_NAME}|g" /var/www/html/config.php
+    
+    # Replace the actual values in config.php (not placeholders)
+    # Handle DATABASE_USER (could be 'cats' or 'PLACEHOLDER_DB_USER')
+    sed -i.bak "s|define('DATABASE_USER', 'cats')|define('DATABASE_USER', '${DATABASE_USER}')|g" /var/www/html/config.php
+    sed -i.bak "s|define('DATABASE_USER', 'PLACEHOLDER_DB_USER')|define('DATABASE_USER', '${DATABASE_USER}')|g" /var/www/html/config.php
+    
+    # Handle DATABASE_PASS (could be 'password' or 'PLACEHOLDER_DB_PASS')
+    sed -i.bak "s|define('DATABASE_PASS', 'password')|define('DATABASE_PASS', '${DATABASE_PASS}')|g" /var/www/html/config.php
+    sed -i.bak "s|define('DATABASE_PASS', 'PLACEHOLDER_DB_PASS')|define('DATABASE_PASS', '${DATABASE_PASS}')|g" /var/www/html/config.php
+    
+    # Handle DATABASE_HOST (could be 'localhost' or 'PLACEHOLDER_DB_HOST')
+    sed -i.bak "s|define('DATABASE_HOST', 'localhost')|define('DATABASE_HOST', '${DATABASE_HOST}')|g" /var/www/html/config.php
+    sed -i.bak "s|define('DATABASE_HOST', 'PLACEHOLDER_DB_HOST')|define('DATABASE_HOST', '${DATABASE_HOST}')|g" /var/www/html/config.php
+    
+    # Handle DATABASE_NAME (could be 'cats_dev' or 'PLACEHOLDER_DB_NAME')
+    sed -i.bak "s|define('DATABASE_NAME', 'cats_dev')|define('DATABASE_NAME', '${DATABASE_NAME}')|g" /var/www/html/config.php
+    sed -i.bak "s|define('DATABASE_NAME', 'PLACEHOLDER_DB_NAME')|define('DATABASE_NAME', '${DATABASE_NAME}')|g" /var/www/html/config.php
+    
+    # Handle LICENSE_KEY
+    sed -i.bak "s|define('LICENSE_KEY','3163GQ-54ISGW-14E4SHD-ES9ICL-X02DTG-GYRSQ6')|define('LICENSE_KEY','${LICENSE_KEY}')|g" /var/www/html/config.php
+    sed -i.bak "s|define('LICENSE_KEY','PLACEHOLDER_LICENSE_KEY')|define('LICENSE_KEY','${LICENSE_KEY}')|g" /var/www/html/config.php
 
-    # Remove the backup file created by sed
-    rm -f /var/www/html/config.php.bak
+    # Remove all backup files created by sed
+    rm -f /var/www/html/config.php.bak*
 
     echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')] config.php generated successfully!${NC}"
 }
