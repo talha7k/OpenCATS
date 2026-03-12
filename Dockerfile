@@ -69,7 +69,10 @@ RUN mkdir -p /var/www/html/temp /var/www/html/upload /var/www/html/attachments \
     && chown -R www-data:www-data /var/www/html/attachments \
     && chmod -R 755 /var/www/html/temp \
     && chmod -R 755 /var/www/html/upload \
-    && chmod -R 755 /var/www/html/attachments
+    && chmod -R 755 /var/www/html/attachments \
+    && touch /var/www/html/config.php \
+    && chown www-data:www-data /var/www/html/config.php \
+    && chmod 666 /var/www/html/config.php
 
 # Copy Apache virtual host configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
