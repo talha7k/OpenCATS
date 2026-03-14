@@ -1213,6 +1213,7 @@ class TemplateUtility
         echo '<script type="text/javascript" src="js/calendarDateInput.js'.$javascriptAntiCache.'"></script>', "\n";
         echo '<script type="text/javascript" src="js/submodal/subModal.js'.$javascriptAntiCache.'"></script>', "\n";
         echo '<script type="text/javascript" src="js/jquery-1.3.2.min.js'.$javascriptAntiCache.'"></script>', "\n";
+        echo '<script type="text/javascript" src="js/theme-toggle.js'.$javascriptAntiCache.'"></script>', "\n";
         echo '<script type="text/javascript">CATSIndexName = ', json_encode((string) CATSUtility::getIndexName(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT), ';</script>', "\n";
         if (isset($_SESSION['CATS']) && $_SESSION['CATS']->isLoggedIn())
         {
