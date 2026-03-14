@@ -54,25 +54,32 @@
         createToggleButton: function() {
             var button = document.createElement('button');
             button.id = 'theme-toggle';
-            button.className = 'theme-toggle';
+            button.type = 'button';
+            button.className = 'linkButton';
             button.innerHTML = '🌙';
             button.title = 'Toggle dark/light mode';
-            button.style.cssText = [
-                'position: fixed',
-                'top: 10px',
-                'right: 10px',
-                'z-index: 9999',
-                'background: var(--bg-button)',
-                'color: var(--color-text-white)',
-                'border: 1px solid var(--border-color)',
-                'border-radius: 4px',
-                'padding: 8px 12px',
-                'cursor: pointer',
-                'font-size: 16px',
-                'transition: background-color 0.3s ease'
-            ].join(';');
             
-            document.body.appendChild(button);
+            // Find the logout form to insert before it
+            var logoutForm = document.getElementById('logoutForm');
+            if (logoutForm && logoutForm.parentNode) {
+                // Insert before the logout form
+                logoutForm.parentNode.insertBefore(button, logoutForm);
+                
+                // Add separator
+                var separator = document.createTextNode(' ');
+                logoutForm.parentNode.insertBefore(separator, logoutForm);
+            } else {
+                // Fallback: add to header block
+                var headerBlock = document.getElementById('headerBlock');
+                if (headerBlock) {
+                    headerBlock.appendChild(button);
+                } else {
+                    // Last resort: fixed position but smaller
+                    button.style.cssText = 'position:fixed;top:10px;right:10px;z-index:9999;';
+                    document.body.appendChild(button);
+                }
+            }
+            
             return button;
         },
 
@@ -80,14 +87,6 @@
             var button = document.getElementById('theme-toggle');
             if (button) {
                 button.addEventListener('click', this.toggleTheme.bind(this));
-                
-                button.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = 'var(--bg-button-hover)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = 'var(--bg-button)';
-                });
             }
         }
     };

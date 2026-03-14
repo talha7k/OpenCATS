@@ -80,13 +80,18 @@
     --color-error: #f85149;
 }
 
-[data-theme="dark"] body,
-[data-theme="dark"] #contents,
-[data-theme="dark"] #modalContents {
+/* Dark Theme Global Styles */
+[data-theme="dark"] {
     background-color: var(--bg-body);
     color: var(--color-text);
 }
 
+[data-theme="dark"] body {
+    background-color: var(--bg-body);
+    color: var(--color-text);
+}
+
+/* Main content areas */
 [data-theme="dark"] #main {
     background-color: var(--bg-main);
     color: var(--color-text-white);
@@ -96,16 +101,28 @@
 [data-theme="dark"] #modalContents {
     background-color: var(--bg-content);
     color: var(--color-text);
+    box-shadow: 0px 10px 5px -5px var(--shadow-color);
 }
 
-[data-theme="dark"] input,
-[data-theme="dark"] textarea,
-[data-theme="dark"] select {
-    background-color: var(--bg-input);
+/* Text elements */
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] blockquote,
+[data-theme="dark"] span,
+[data-theme="dark"] div {
     color: var(--color-text);
-    border-color: var(--border-color);
 }
 
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--color-text);
+}
+
+/* Links */
 [data-theme="dark"] a:link,
 [data-theme="dark"] a:visited {
     color: var(--color-link);
@@ -113,4 +130,204 @@
 
 [data-theme="dark"] a:hover {
     color: var(--color-link-hover);
+}
+
+/* Form elements */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] input[type="url"],
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background-color: var(--bg-input);
+    color: var(--color-text);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+/* Buttons */
+[data-theme="dark"] input[type="submit"],
+[data-theme="dark"] input[type="button"],
+[data-theme="dark"] button {
+    background-color: var(--bg-button);
+    color: var(--color-text-white);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] input[type="submit"]:hover,
+[data-theme="dark"] input[type="button"]:hover,
+[data-theme="dark"] button:hover {
+    background-color: var(--bg-button-hover);
+}
+
+/* Tables */
+[data-theme="dark"] table {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] th {
+    background-color: var(--bg-hover);
+    color: var(--color-text);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] td {
+    border-color: var(--border-color);
+    color: var(--color-text);
+}
+
+[data-theme="dark"] tr:nth-child(even) {
+    background-color: var(--bg-table-even);
+}
+
+[data-theme="dark"] tr:nth-child(odd) {
+    background-color: var(--bg-table-odd);
+}
+
+[data-theme="dark"] tr:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Tabs */
+[data-theme="dark"] #header ul#primary a.inactive {
+    background: var(--bg-tab-inactive);
+    color: var(--color-text);
+}
+
+[data-theme="dark"] #header ul#primary a.active {
+    background: var(--bg-tab-active);
+    color: var(--color-text-white);
+}
+
+/* Header block */
+[data-theme="dark"] #headerBlock {
+    color: var(--color-text);
+}
+
+/* Sortable tables */
+[data-theme="dark"] table.sortable th {
+    background-color: var(--bg-hover);
+    color: var(--color-text);
+}
+
+/* Notes and entries */
+[data-theme="dark"] .note,
+[data-theme="dark"] .entry {
+    background-color: var(--bg-form);
+    border-color: var(--border-color);
+    color: var(--color-text);
+}
+
+/* Popup containers */
+[data-theme="dark"] .popupContainer,
+[data-theme="dark"] #popupContainer {
+    background-color: var(--bg-modal);
+    color: var(--color-text);
+}
+
+/* Search results */
+[data-theme="dark"] .searchResult {
+    background-color: var(--bg-form);
+    border-color: var(--border-color);
+}
+
+/* Form layouts */
+[data-theme="dark"] .editTable td,
+[data-theme="dark"] .editTable th {
+    background-color: var(--bg-form);
+    color: var(--color-text);
+    border-color: var(--border-color);
+}
+
+/* Calendar */
+[data-theme="dark"] .calendar {
+    background-color: var(--bg-form);
+    color: var(--color-text);
+}
+
+[data-theme="dark"] .calendar td {
+    background-color: var(--bg-input);
+    color: var(--color-text);
+}
+
+/* Bread crumbs */
+[data-theme="dark"] .h2BreadCrumb:link,
+[data-theme="dark"] .h2BreadCrumb:visited {
+    color: var(--color-link);
+}
+
+/* Template-specific classes from main.css */
+[data-theme="dark"] .evenrow {
+    background-color: var(--bg-table-even);
+}
+
+[data-theme="dark"] .oddrow {
+    background-color: var(--bg-table-odd);
+}
+
+/* Status indicators */
+[data-theme="dark"] .statusActive {
+    color: var(--color-success);
+}
+
+[data-theme="dark"] .statusInactive {
+    color: var(--color-error);
+}
+
+/* Modal specific */
+[data-theme="dark"] .modalContent {
+    background-color: var(--bg-modal);
+    color: var(--color-text);
+}
+
+/* Message boxes */
+[data-theme="dark"] .info,
+[data-theme="dark"] .warning,
+[data-theme="dark"] .error,
+[data-theme="dark"] .success {
+    border-color: var(--border-color);
+    color: var(--color-text);
+}
+
+/* Select dropdown styling */
+[data-theme="dark"] select option {
+    background-color: var(--bg-input);
+    color: var(--color-text);
+}
+
+/* Checkbox and radio styling */
+[data-theme="dark"] input[type="checkbox"],
+[data-theme="dark"] input[type="radio"] {
+    accent-color: var(--color-primary);
+}
+
+/* Horizontal rules */
+[data-theme="dark"] hr {
+    border-color: var(--border-color);
+}
+
+/* Code and pre blocks */
+[data-theme="dark"] pre,
+[data-theme="dark"] code {
+    background-color: var(--bg-input);
+    color: var(--color-text);
+    border-color: var(--border-color);
+}
+
+/* Fieldsets */
+[data-theme="dark"] fieldset {
+    border-color: var(--border-color);
+    color: var(--color-text);
+}
+
+[data-theme="dark"] legend {
+    color: var(--color-text);
 }
