@@ -152,7 +152,7 @@ class awAntiSpam extends awImage {
 			);
 
 			$text = new awText(
-				$this->string{$i},
+				$this->string[$i],
 				$font,
 				NULL,
 				mt_rand(-15, 15)

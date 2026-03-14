@@ -280,7 +280,7 @@ class DatabaseConnection
             return false;
         }
 
-		mysqli_data_seek($this->_queryResult, $row);
+		mysqli_data_seek($this->_queryResult, (int)$row);
         return mysqli_fetch_row($this->_queryResult);
     }
 

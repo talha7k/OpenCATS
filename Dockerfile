@@ -1,7 +1,7 @@
 # Production-ready Dockerfile for OpenCATS
 # Optimized for Railway deployment
 
-FROM php:8.0-apache
+FROM php:7.4-apache
 
 # Set metadata for Railway
 LABEL org.opencontainers.image.title="OpenCATS"
