@@ -59,26 +59,26 @@ define('SSL_ENABLED', false);
  * 'C:\\antiword\\antiword.exe'. Windows Antiword will have problems locating
  * mapping files if you install it anywhere but C:\antiword\.
  */
-define('ANTIWORD_PATH', "\\path\\to\\antiword");
+define('ANTIWORD_PATH', "/usr/bin/antiword");
 define('ANTIWORD_MAP', '8859-1.txt');
 
 /* XPDF / pdftotext settings. Remember to use double backslashes (\) to represent
  * one backslash (\).
  * http://www.foolabs.com/xpdf/
  */
-define('PDFTOTEXT_PATH', "\\path\\to\\pdftotext");
+define('PDFTOTEXT_PATH', "/usr/bin/pdftotext");
 
 /* html2text settings. Remember to use double backslashes (\) to represent
  * one backslash (\). 'html2text' can be found at:
  * http://www.mbayer.de/html2text/
  */
-define('HTML2TEXT_PATH', "\\path\\to\\html2text");
+define('HTML2TEXT_PATH', "/usr/bin/html2text");
 
 /* UnRTF settings. Remember to use double backslashes (\) to represent
  * one backslash (\). 'unrtf' can be found at:
  * http://www.gnu.org/software/unrtf/unrtf.html
  */
-define('UNRTF_PATH', "\\path\\to\unrtf");
+define('UNRTF_PATH', "/usr/bin/unrtf");
 
 /* Temporary directory. Set this to a directory that is writable by the
  * web server. The default should be fine for most systems. Remember to

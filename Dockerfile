@@ -24,6 +24,10 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
+    antiword \
+    poppler-utils \
+    html2text \
+    unrtf \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
