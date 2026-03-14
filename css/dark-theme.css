@@ -1,47 +1,6 @@
 :root {
     --color-primary: #00008b;
     --color-primary-hover: #0000cd;
-    --color-link: #00008b;
-    --color-link-hover: #0000cd;
-    
-    --color-text: #333;
-    --color-text-secondary: #666;
-    --color-text-muted: #999;
-    --color-text-white: #fff;
-    --color-text-dark: #000;
-    
-    --bg-body: #fff;
-    --bg-main: #6c94eb;
-    --bg-content: #fff;
-    --bg-modal: #eee;
-    --bg-tab-inactive: #E2E2E2;
-    --bg-tab-active: #E2E2E2;
-    --bg-hover: #f4f4f4;
-    --bg-table-even: #fff;
-    --bg-table-odd: #f4f4f4;
-    --bg-form: #fff;
-    --bg-input: #fff;
-    --bg-button: #6084C8;
-    --bg-button-hover: #6c94eb;
-    --bg-warning: #f9f9d9;
-    --bg-danger: #ec3737;
-    --bg-highlight: #aeaeff;
-    
-    --border-color: #666;
-    --border-color-light: #ccc;
-    --border-color-lighter: #e0e0e0;
-    
-    --shadow-color: rgba(112, 112, 112, 1);
-    
-    --color-success: #00aa00;
-    --color-info: #2f4f88;
-    --color-warning: #ff9900;
-    --color-error: #cc0000;
-}
-
-[data-theme="dark"] {
-    --color-primary: #4a7cff;
-    --color-primary-hover: #6b9fff;
     --color-link: #6b9fff;
     --color-link-hover: #8fb9ff;
     
@@ -65,8 +24,13 @@
     --bg-button: #2d333b;
     --bg-button-hover: #3b4452;
     --bg-warning: #42380d;
-    --bg-danger: #4a1a1a;
+    --bg-danger: #6e2a2a;
     --bg-highlight: #2d3a4a;
+    --bg-success: #1a3d1a;
+    --bg-info: #1a2d3d;
+    --bg-gray: #2d333b;
+    --bg-light: #21262d;
+    --bg-lighter: #2d333b;
     
     --border-color: #444c56;
     --border-color-light: #586069;
@@ -78,39 +42,58 @@
     --color-info: #58a6ff;
     --color-warning: #d29922;
     --color-error: #f85149;
+    --color-orange: #ff9500;
+    --color-purple: #a371f7;
+    --color-highlight: #ffff99;
 }
 
-/* Dark Theme Global Styles */
 [data-theme="dark"] {
-    background-color: var(--bg-body);
-    color: var(--color-text);
+    color-scheme: dark;
 }
 
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+[data-theme="dark"] html,
 [data-theme="dark"] body {
-    background-color: var(--bg-body);
-    color: var(--color-text);
+    background-color: var(--bg-body) !important;
+    color: var(--color-text) !important;
 }
 
-/* Main content areas */
+[data-theme="dark"] * {
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+
 [data-theme="dark"] #main {
-    background-color: var(--bg-main);
-    color: var(--color-text-white);
+    background-color: var(--bg-main) !important;
+    color: var(--color-text-white) !important;
+    border-color: var(--border-color) !important;
 }
 
 [data-theme="dark"] #contents,
 [data-theme="dark"] #modalContents {
-    background-color: var(--bg-content);
-    color: var(--color-text);
-    box-shadow: 0px 10px 5px -5px var(--shadow-color);
+    background-color: var(--bg-content) !important;
+    color: var(--color-text) !important;
+    box-shadow: 0px 10px 5px -5px var(--shadow-color) !important;
 }
 
-/* Text elements */
+/* ============================================
+   TEXT ELEMENTS
+   ============================================ */
+
 [data-theme="dark"] p,
 [data-theme="dark"] li,
 [data-theme="dark"] blockquote,
 [data-theme="dark"] span,
-[data-theme="dark"] div {
-    color: var(--color-text);
+[data-theme="dark"] div,
+[data-theme="dark"] td,
+[data-theme="dark"] th {
+    color: var(--color-text) !important;
 }
 
 [data-theme="dark"] h1,
@@ -119,215 +102,600 @@
 [data-theme="dark"] h4,
 [data-theme="dark"] h5,
 [data-theme="dark"] h6 {
-    color: var(--color-text);
+    color: var(--color-text) !important;
 }
 
-/* Links */
+/* Specific overrides for hardcoded colors */
+[data-theme="dark"] h2,
+[data-theme="dark"] .h2BreadCrumb:link,
+[data-theme="dark"] .h2BreadCrumb:visited {
+    color: var(--color-text-secondary) !important;
+}
+
+/* ============================================
+   LINKS
+   ============================================ */
+
 [data-theme="dark"] a:link,
 [data-theme="dark"] a:visited {
-    color: var(--color-link);
+    color: var(--color-link) !important;
 }
 
 [data-theme="dark"] a:hover {
-    color: var(--color-link-hover);
+    color: var(--color-link-hover) !important;
 }
 
-/* Form elements */
+/* ============================================
+   TABS (from main.css)
+   ============================================ */
+
+[data-theme="dark"] #header ul#primary a.inactive {
+    background: var(--bg-tab-inactive) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #header ul#primary a.inactive:hover {
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] #header ul#primary a.active {
+    background: var(--bg-tab-active) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* ============================================
+   FORMS
+   ============================================ */
+
 [data-theme="dark"] input[type="text"],
 [data-theme="dark"] input[type="password"],
 [data-theme="dark"] input[type="email"],
 [data-theme="dark"] input[type="number"],
 [data-theme="dark"] input[type="search"],
 [data-theme="dark"] input[type="url"],
+[data-theme="dark"] input[type="tel"],
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] input[type="time"],
+[data-theme="dark"] input[type="datetime-local"],
 [data-theme="dark"] textarea,
 [data-theme="dark"] select {
-    background-color: var(--bg-input);
-    color: var(--color-text);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 [data-theme="dark"] input:focus,
 [data-theme="dark"] textarea:focus,
 [data-theme="dark"] select:focus {
-    border-color: var(--color-primary);
-    outline: none;
+    border-color: var(--color-primary) !important;
+    outline: none !important;
 }
 
-/* Buttons */
 [data-theme="dark"] input[type="submit"],
 [data-theme="dark"] input[type="button"],
 [data-theme="dark"] button {
-    background-color: var(--bg-button);
-    color: var(--color-text-white);
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+    border: 1px solid var(--border-color) !important;
 }
 
 [data-theme="dark"] input[type="submit"]:hover,
 [data-theme="dark"] input[type="button"]:hover,
 [data-theme="dark"] button:hover {
-    background-color: var(--bg-button-hover);
+    background-color: var(--bg-button-hover) !important;
 }
 
-/* Tables */
+[data-theme="dark"] select option {
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] input[type="checkbox"],
+[data-theme="dark"] input[type="radio"] {
+    accent-color: var(--color-primary) !important;
+}
+
+/* ============================================
+   TABLES
+   ============================================ */
+
 [data-theme="dark"] table {
-    border-color: var(--border-color);
+    border-color: var(--border-color) !important;
 }
 
 [data-theme="dark"] th {
-    background-color: var(--bg-hover);
-    color: var(--color-text);
-    border-color: var(--border-color);
+    background-color: var(--bg-hover) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
 }
 
 [data-theme="dark"] td {
-    border-color: var(--border-color);
-    color: var(--color-text);
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme="dark"] tr:nth-child(even) {
-    background-color: var(--bg-table-even);
+    background-color: var(--bg-table-even) !important;
 }
 
 [data-theme="dark"] tr:nth-child(odd) {
-    background-color: var(--bg-table-odd);
+    background-color: var(--bg-table-odd) !important;
 }
 
 [data-theme="dark"] tr:hover {
-    background-color: var(--bg-hover);
+    background-color: var(--bg-hover) !important;
 }
 
-/* Tabs */
-[data-theme="dark"] #header ul#primary a.inactive {
-    background: var(--bg-tab-inactive);
-    color: var(--color-text);
-}
-
-[data-theme="dark"] #header ul#primary a.active {
-    background: var(--bg-tab-active);
-    color: var(--color-text-white);
-}
-
-/* Header block */
-[data-theme="dark"] #headerBlock {
-    color: var(--color-text);
-}
-
-/* Sortable tables */
-[data-theme="dark"] table.sortable th {
-    background-color: var(--bg-hover);
-    color: var(--color-text);
-}
-
-/* Notes and entries */
-[data-theme="dark"] .note,
-[data-theme="dark"] .entry {
-    background-color: var(--bg-form);
-    border-color: var(--border-color);
-    color: var(--color-text);
-}
-
-/* Popup containers */
-[data-theme="dark"] .popupContainer,
-[data-theme="dark"] #popupContainer {
-    background-color: var(--bg-modal);
-    color: var(--color-text);
-}
-
-/* Search results */
-[data-theme="dark"] .searchResult {
-    background-color: var(--bg-form);
-    border-color: var(--border-color);
-}
-
-/* Form layouts */
-[data-theme="dark"] .editTable td,
-[data-theme="dark"] .editTable th {
-    background-color: var(--bg-form);
-    color: var(--color-text);
-    border-color: var(--border-color);
-}
-
-/* Calendar */
-[data-theme="dark"] .calendar {
-    background-color: var(--bg-form);
-    color: var(--color-text);
-}
-
-[data-theme="dark"] .calendar td {
-    background-color: var(--bg-input);
-    color: var(--color-text);
-}
-
-/* Bread crumbs */
-[data-theme="dark"] .h2BreadCrumb:link,
-[data-theme="dark"] .h2BreadCrumb:visited {
-    color: var(--color-link);
-}
-
-/* Template-specific classes from main.css */
 [data-theme="dark"] .evenrow {
-    background-color: var(--bg-table-even);
+    background-color: var(--bg-table-even) !important;
 }
 
 [data-theme="dark"] .oddrow {
-    background-color: var(--bg-table-odd);
+    background-color: var(--bg-table-odd) !important;
 }
 
-/* Status indicators */
+[data-theme="dark"] table.sortable th {
+    background-color: var(--bg-hover) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   HEADER BLOCK & NAVIGATION
+   ============================================ */
+
+[data-theme="dark"] #headerBlock {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #headerBlock span {
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   SIDEBAR / NAVIGATION PANELS
+   ============================================ */
+
+[data-theme="dark"] .navPanel,
+[data-theme="dark"] .sidePanel {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+/* Dotted borders */
+[data-theme="dark"] td[style*="dotted"],
+[data-theme="dark"] div[style*="dotted"] {
+    border-color: var(--border-color-light) !important;
+}
+
+/* ============================================
+   NOTES, ENTRIES & CONTENT BOXES
+   ============================================ */
+
+[data-theme="dark"] .note,
+[data-theme="dark"] .entry,
+[data-theme="dark"] .noteInner {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   POPUPS & MODALS
+   ============================================ */
+
+[data-theme="dark"] .popupContainer,
+[data-theme="dark"] #popupContainer,
+[data-theme="dark"] .modalContent,
+[data-theme="dark"] .modal {
+    background-color: var(--bg-modal) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   SEARCH RESULTS & HIGHLIGHTS
+   ============================================ */
+
+[data-theme="dark"] .searchResult {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Search highlighting - yellow highlight */
+[data-theme="dark"] span[style*="background-color: #ffff99"],
+[data-theme="dark"] span[style*="background-color:#ffff99"],
+[data-theme="dark"] .highlight {
+    background-color: var(--color-highlight) !important;
+    color: #000 !important;
+}
+
+/* ============================================
+   STATUS INDICATORS
+   ============================================ */
+
 [data-theme="dark"] .statusActive {
-    color: var(--color-success);
+    color: var(--color-success) !important;
 }
 
 [data-theme="dark"] .statusInactive {
-    color: var(--color-error);
+    color: var(--color-error) !important;
 }
 
-/* Modal specific */
-[data-theme="dark"] .modalContent {
-    background-color: var(--bg-modal);
-    color: var(--color-text);
+/* ============================================
+   ERROR / WARNING / INFO BOXES
+   ============================================ */
+
+/* Red error boxes - DatabaseConnection.php, install */
+[data-theme="dark"] p[style*="background: #ec3737"],
+[data-theme="dark"] p[style*="background:#ec3737"],
+[data-theme="dark"] .errorBox,
+[data-theme="dark"] .error {
+    background-color: var(--bg-danger) !important;
+    color: var(--color-text-white) !important;
 }
 
-/* Message boxes */
-[data-theme="dark"] .info,
+/* Warning boxes */
 [data-theme="dark"] .warning,
-[data-theme="dark"] .error,
-[data-theme="dark"] .success {
-    border-color: var(--border-color);
-    color: var(--color-text);
+[data-theme="dark"] .warnBox {
+    background-color: var(--bg-warning) !important;
+    color: var(--color-text) !important;
+    border-color: var(--color-warning) !important;
 }
 
-/* Select dropdown styling */
-[data-theme="dark"] select option {
-    background-color: var(--bg-input);
-    color: var(--color-text);
+/* Info boxes */
+[data-theme="dark"] .info,
+[data-theme="dark"] .infoBox {
+    background-color: var(--bg-info) !important;
+    color: var(--color-text) !important;
+    border-color: var(--color-info) !important;
 }
 
-/* Checkbox and radio styling */
-[data-theme="dark"] input[type="checkbox"],
-[data-theme="dark"] input[type="radio"] {
-    accent-color: var(--color-primary);
+/* Success boxes */
+[data-theme="dark"] .success,
+[data-theme="dark"] .successBox {
+    background-color: var(--bg-success) !important;
+    color: var(--color-text-white) !important;
 }
 
-/* Horizontal rules */
+/* ============================================
+   INSTALL WIZARD
+   ============================================ */
+
+/* Required field asterisks */
+[data-theme="dark"] span[style*="color: #ff0000"],
+[data-theme="dark"] span[style*="color:#ff0000"] {
+    color: var(--color-error) !important;
+}
+
+/* Progress bars */
+[data-theme="dark"] div[style*="background-color:#eeeeee"],
+[data-theme="dark"] div[style*="background-color: #eeeeee"] {
+    background-color: var(--bg-gray) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] div[style*="background-color:#2244ff"],
+[data-theme="dark"] div[style*="background-color: #2244ff"] {
+    background-color: var(--color-primary) !important;
+}
+
+[data-theme="dark"] div[style*="color:#ffffff"],
+[data-theme="dark"] div[style*="color: #ffffff"] {
+    color: var(--color-text-white) !important;
+}
+
+/* SQL query box */
+[data-theme="dark"] div[style*="background-color: #fff"],
+[data-theme="dark"] div[style*="background-color:#fff"] {
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   CALENDAR (Calendar.css)
+   ============================================ */
+
+[data-theme="dark"] .calendar,
+[data-theme="dark"] .calendarTable {
+    background-color: var(--bg-form) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .calendar td,
+[data-theme="dark"] .calendar th {
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .calendar .today {
+    background-color: var(--bg-highlight) !important;
+}
+
+[data-theme="dark"] .calendar .selected {
+    background-color: var(--color-primary) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* ============================================
+   CAREERS PAGE (careersPage.css)
+   ============================================ */
+
+[data-theme="dark"] body.careersPage,
+[data-theme="dark"] #careersPage {
+    background-color: var(--bg-body) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #actions {
+    background-color: var(--bg-gray) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] #displayTable tr.header {
+    background-color: var(--bg-hover) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] #displayTable tr.odd {
+    background-color: var(--bg-table-odd) !important;
+}
+
+[data-theme="dark"] #displayTable tr.even {
+    background-color: var(--bg-table-even) !important;
+}
+
+[data-theme="dark"] div#detailsTools,
+[data-theme="dark"] .applyBoxLeft,
+[data-theme="dark"] .applyBoxRight {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .applyBoxLeft div,
+[data-theme="dark"] .applyBoxRight div {
+    background-color: var(--bg-hover) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   LOGIN PAGE (login.css)
+   ============================================ */
+
+[data-theme="dark"] #loginPage,
+[data-theme="dark"] .loginContainer {
+    background-color: var(--bg-body) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .loginBox {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   WIZARD (style.css)
+   ============================================ */
+
+[data-theme="dark"] .wizardPage,
+[data-theme="dark"] .wizardStep {
+    background-color: var(--bg-form) !important;
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .wizardStep.active {
+    background-color: var(--color-primary) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* ============================================
+   MASS IMPORT (MassImport.css)
+   ============================================ */
+
+[data-theme="dark"] .importContainer {
+    background-color: var(--bg-form) !important;
+}
+
+/* ============================================
+   SETTINGS (downloads.css)
+   ============================================ */
+
+[data-theme="dark"] #settingsDownloads h4 {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] table.downloadSupportedGrid {
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] table.downloadSupportedGrid tr.headers {
+    background-color: var(--bg-hover) !important;
+}
+
+/* ============================================
+   INSTALL (install.css)
+   ============================================ */
+
+[data-theme="dark"] .installContainer {
+    background-color: var(--bg-form) !important;
+}
+
+/* Green buttons */
+[data-theme="dark"] input[style*="background: #419933"],
+[data-theme="dark"] button[style*="background: #419933"],
+[data-theme="dark"] .btnSuccess {
+    background-color: var(--color-success) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* Red buttons */
+[data-theme="dark"] input[style*="background: #ec3737"],
+[data-theme="dark"] button[style*="background: #ec3737"],
+[data-theme="dark"] .btnDanger {
+    background-color: var(--color-error) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* ============================================
+   CONTROL PANEL
+   ============================================ */
+
+[data-theme="dark"] span[style*="color: #c0c0c0"],
+[data-theme="dark"] span[style*="color:#c0c0c0"] {
+    color: var(--color-text-muted) !important;
+}
+
+[data-theme="dark"] h2[style*="color: #800000"],
+[data-theme="dark"] h2[style*="color:#800000"],
+[data-theme="dark"] h1[style*="color: #800000"],
+[data-theme="dark"] h1[style*="color:#800000"] {
+    color: var(--color-error) !important;
+}
+
+/* ============================================
+   PIPELINE & CANDIDATES
+   ============================================ */
+
+[data-theme="dark"] td[style*="background-color: white"],
+[data-theme="dark"] td[style*="background-color:white"] {
+    background-color: var(--bg-content) !important;
+}
+
+[data-theme="dark"] span[style*="color: #ff6c00"],
+[data-theme="dark"] span[style*="color:#ff6c00"] {
+    color: var(--color-orange) !important;
+}
+
+/* ============================================
+   ATTACHMENTS
+   ============================================ */
+
+[data-theme="dark"] div[style*="background-color: #e0e0e0"],
+[data-theme="dark"] div[style*="background-color:#e0e0e0"] {
+    background-color: var(--bg-hover) !important;
+}
+
+/* ============================================
+   MRU (Most Recently Used)
+   ============================================ */
+
+[data-theme="dark"] span[style*="color: orange"],
+[data-theme="dark"] span[style*="color:orange"] {
+    color: var(--color-orange) !important;
+}
+
+/* ============================================
+   DATALIST / DATAGRID
+   ============================================ */
+
+[data-theme="dark"] span[style*="color:#000000"],
+[data-theme="dark"] span[style*="color: #000000"] {
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   HORIZONTAL RULES
+   ============================================ */
+
 [data-theme="dark"] hr {
-    border-color: var(--border-color);
+    border-color: var(--border-color) !important;
 }
 
-/* Code and pre blocks */
+/* ============================================
+   CODE & PREFORMATTED TEXT
+   ============================================ */
+
 [data-theme="dark"] pre,
 [data-theme="dark"] code {
-    background-color: var(--bg-input);
-    color: var(--color-text);
-    border-color: var(--border-color);
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
 }
 
-/* Fieldsets */
+/* ============================================
+   FIELDSETS
+   ============================================ */
+
 [data-theme="dark"] fieldset {
-    border-color: var(--border-color);
-    color: var(--color-text);
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
 }
 
 [data-theme="dark"] legend {
-    color: var(--color-text);
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   MISCELLANEOUS HARDCODED COLORS
+   ============================================ */
+
+/* Black text */
+[data-theme="dark"] span[style*="color: #000"],
+[data-theme="dark"] div[style*="color: #000"],
+[data-theme="dark"] td[style*="color: #000"],
+[data-theme="dark"] p[style*="color: #000"] {
+    color: var(--color-text) !important;
+}
+
+/* White backgrounds */
+[data-theme="dark"] div[style*="background: #fff"],
+[data-theme="dark"] div[style*="background:#fff"],
+[data-theme="dark"] td[style*="background: #fff"],
+[data-theme="dark"] td[style*="background:#fff"] {
+    background-color: var(--bg-content) !important;
+}
+
+/* Gray backgrounds */
+[data-theme="dark"] div[style*="background: #eee"],
+[data-theme="dark"] div[style*="background:#eee"],
+[data-theme="dark"] div[style*="background-color: #eee"],
+[data-theme="dark"] div[style*="background-color:#eee"] {
+    background-color: var(--bg-hover) !important;
+}
+
+/* Light gray text */
+[data-theme="dark"] span[style*="color: #666"],
+[data-theme="dark"] span[style*="color:#666"],
+[data-theme="dark"] td[style*="color: #666666"],
+[data-theme="dark"] td[style*="color:#666666"] {
+    color: var(--color-text-secondary) !important;
+}
+
+/* Dark blue links */
+[data-theme="dark"] a[style*="color: #00008b"],
+[data-theme="dark"] a[style*="color:#00008b"] {
+    color: var(--color-link) !important;
+}
+
+/* Info colors */
+[data-theme="dark"] span[style*="color: #2f4f88"],
+[data-theme="dark"] span[style*="color:#2f4f88"],
+[data-theme="dark"] span[style*="color: #6084C8"],
+[data-theme="dark"] span[style*="color:#6084C8"] {
+    color: var(--color-info) !important;
+}
+
+/* Border colors */
+[data-theme="dark"] div[style*="border: 1px solid #000"],
+[data-theme="dark"] div[style*="border:1px solid #000"],
+[data-theme="dark"] td[style*="border: 1px solid #000"] {
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] div[style*="border: 1px solid #ccc"],
+[data-theme="dark"] div[style*="border:1px solid #ccc"],
+[data-theme="dark"] td[style*="border: 1px solid #ccc"] {
+    border-color: var(--border-color-light) !important;
+}
+
+/* ============================================
+   PRINT STYLES (keep light for printing)
+   ============================================ */
+
+@media print {
+    [data-theme="dark"] {
+        background-color: #fff !important;
+        color: #000 !important;
+    }
 }
