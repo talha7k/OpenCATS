@@ -690,6 +690,594 @@
 }
 
 /* ============================================
+   CONTROL PANEL STYLES (main.css lines 1238-1340)
+   ============================================ */
+
+/* Control Panel List View Table */
+[data-theme="dark"] table.cpListView {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-content) !important;
+}
+
+/* Control Panel Field Headers */
+[data-theme="dark"] td.cpFieldHeader {
+    background-color: var(--bg-hover) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] td.cpFieldHeaderSorted {
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] a.cpFieldHeader {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] a.cpFieldHeader:hover {
+    color: var(--color-link) !important;
+}
+
+/* Control Panel Field Rows */
+[data-theme="dark"] td.cpField1 {
+    background-color: var(--bg-content) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] td.cpField2 {
+    background-color: var(--bg-table-odd) !important;
+    color: var(--color-text) !important;
+}
+
+/* Control Panel Sum Rows */
+[data-theme="dark"] td.cpFieldSum {
+    background-color: var(--bg-hover) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] td.cpFieldSumRows {
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* Control Panel Sections */
+[data-theme="dark"] div.cpSection {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-form) !important;
+}
+
+[data-theme="dark"] span.cpSectionTitle {
+    color: var(--color-text) !important;
+}
+
+/* Control Panel Info Boxes */
+[data-theme="dark"] div.cpInfo {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-form) !important;
+}
+
+[data-theme="dark"] span.cpInfoHeaderText {
+    color: var(--color-info) !important;
+}
+
+/* Control Panel Pager & Search */
+[data-theme="dark"] div.cpPager,
+[data-theme="dark"] div.cpSearch {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] span.cpSearchResultsText {
+    color: var(--color-text) !important;
+}
+
+/* Control Panel External Links */
+[data-theme="dark"] a.cpExternalLink:hover {
+    background-color: var(--color-primary) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* ============================================
+   CONTENT CONTAINERS
+   ============================================ */
+
+[data-theme="dark"] td.contentContainer {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-content) !important;
+}
+
+[data-theme="dark"] td.contentContainerOld {
+    border-color: var(--color-error) !important;
+    background-color: var(--bg-content) !important;
+}
+
+[data-theme="dark"] .downloadSpan {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+}
+
+[data-theme="dark"] .addToListListBox {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-input) !important;
+}
+
+/* ============================================
+   DIV ROWS (even/odd alternating)
+   ============================================ */
+
+[data-theme="dark"] .evenDivRow {
+    background-color: var(--bg-table-even) !important;
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .oddDivRow {
+    background-color: var(--bg-table-odd) !important;
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   DATAGRID SPECIFIC OVERRIDES
+   ============================================ */
+
+/* DataGrid table headers */
+[data-theme="dark"] .sortable th,
+[data-theme="dark"] .sortablepair th,
+[data-theme="dark"] table.sortable th,
+[data-theme="dark"] table.sortablepair th {
+    background-color: var(--bg-hover) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* DataGrid table cells */
+[data-theme="dark"] .sortable td,
+[data-theme="dark"] .sortablepair td,
+[data-theme="dark"] table.sortable td,
+[data-theme="dark"] table.sortablepair td {
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+/* DataGrid header links */
+[data-theme="dark"] .sortable th a:link,
+[data-theme="dark"] .sortable th a:visited,
+[data-theme="dark"] .sortablepair th a:link,
+[data-theme="dark"] .sortablepair th a:visited {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .sortable th a:hover,
+[data-theme="dark"] .sortablepair th a:hover {
+    color: var(--color-link) !important;
+}
+
+/* DataGrid resize handles */
+[data-theme="dark"] .resizeableCell {
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .dataGridResizeAreaInnerDiv {
+    background-color: var(--border-color) !important;
+}
+
+/* DataGrid moveable cell (column dragging) */
+[data-theme="dark"] .moveableCell {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-button) !important;
+}
+
+/* DataGrid AJAX indicator */
+[data-theme="dark"] .ajaxSearchResults {
+    background-color: var(--bg-form) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   FILTER AREA (DataGrid filters)
+   ============================================ */
+
+[data-theme="dark"] .filterAreaFieldSet {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-form) !important;
+}
+
+[data-theme="dark"] .filterAreaLegend {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .filterArea {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .inputBox,
+[data-theme="dark"] input.inputbox {
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .selectBox,
+[data-theme="dark"] select.selectBox {
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+[data-theme="dark"] .button,
+[data-theme="dark"] a.button {
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .button:hover,
+[data-theme="dark"] a.button:hover {
+    background-color: var(--bg-button-hover) !important;
+}
+
+/* ============================================
+   CONTROL PANEL JAVASCRIPT DYNAMIC COLORS
+   (From ControlPanel.php - backgroundColor changes)
+   ============================================ */
+
+/* Override JavaScript backgroundColor assignments */
+[data-theme="dark"] td[style*="background-color: rgb(224, 224, 224)"],
+[data-theme="dark"] td[style*="background-color: #e0e0e0"],
+[data-theme="dark"] td[style*="background-color:#e0e0e0"] {
+    background-color: var(--bg-hover) !important;
+}
+
+[data-theme="dark"] td[style*="background-color: rgb(240, 240, 240)"],
+[data-theme="dark"] td[style*="background-color: #f0f0f0"],
+[data-theme="dark"] td[style*="background-color:#f0f0f0"] {
+    background-color: var(--bg-table-odd) !important;
+}
+
+[data-theme="dark"] td[style*="background-color: rgb(255, 255, 255)"],
+[data-theme="dark"] td[style*="background-color: #ffffff"],
+[data-theme="dark"] td[style*="background-color:#ffffff"] {
+    background-color: var(--bg-content) !important;
+}
+
+/* Delete/pink highlight */
+[data-theme="dark"] td[style*="background-color: rgb(255, 216, 216)"],
+[data-theme="dark"] td[style*="background-color: #ffd8d8"],
+[data-theme="dark"] td[style*="background-color:#ffd8d8"] {
+    background-color: var(--bg-danger) !important;
+}
+
+/* Info popup background */
+[data-theme="dark"] div[style*="background-color: #d4e3ff"],
+[data-theme="dark"] div[style*="background-color:#d4e3ff"] {
+    background-color: var(--bg-info) !important;
+    border-color: var(--color-info) !important;
+}
+
+/* ============================================
+   SPECIFIC HARDCODED INLINE STYLE OVERRIDES
+   ============================================ */
+
+/* Gray border (#c0c0c0) */
+[data-theme="dark"] *[style*="border: 1px solid #c0c0c0"],
+[data-theme="dark"] *[style*="border:1px solid #c0c0c0"],
+[data-theme="dark"] *[style*="border-color: #c0c0c0"],
+[data-theme="dark"] *[style*="border-color:#c0c0c0"] {
+    border-color: var(--border-color) !important;
+}
+
+/* Dark red border (#800000) - error styling */
+[data-theme="dark"] *[style*="border: 1px solid #800000"],
+[data-theme="dark"] *[style*="border:1px solid #800000"],
+[data-theme="dark"] *[style*="border-color: #800000"],
+[data-theme="dark"] *[style*="border-color:#800000"] {
+    border-color: var(--color-error) !important;
+}
+
+/* Dark red text (#800000) - error headers */
+[data-theme="dark"] *[style*="color: #800000"],
+[data-theme="dark"] *[style*="color:#800000"] {
+    color: var(--color-error) !important;
+}
+
+/* Gray text (#666666) */
+[data-theme="dark"] *[style*="color: #666666"],
+[data-theme="dark"] *[style*="color:#666666"] {
+    color: var(--color-text-secondary) !important;
+}
+
+/* Blue border (#87a6de) */
+[data-theme="dark"] *[style*="border: 1px solid #87a6de"],
+[data-theme="dark"] *[style*="border:1px solid #87a6de"] {
+    border-color: var(--color-info) !important;
+}
+
+/* Gray border (gray, #999) */
+[data-theme="dark"] *[style*="border: 1px solid gray"],
+[data-theme="dark"] *[style*="border:1px solid gray"],
+[data-theme="dark"] *[style*="border: 1px solid #999"],
+[data-theme="dark"] *[style*="border:1px solid #999"] {
+    border-color: var(--border-color) !important;
+}
+
+/* White background for various containers */
+[data-theme="dark"] div[style*="background-color: white"],
+[data-theme="dark"] div[style*="background-color:white"] {
+    background-color: var(--bg-content) !important;
+}
+
+/* ============================================
+   ADDITIONAL MAIN.CSS OVERRIDES
+   ============================================ */
+
+/* Button backgrounds with images */
+[data-theme="dark"] input[type="submit"][style*="button_bg.gif"],
+[data-theme="dark"] button[style*="button_bg.gif"],
+[data-theme="dark"] .buttonStyle {
+    background: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* Error/required text (red) */
+[data-theme="dark"] span[style*="color: #ff0000"],
+[data-theme="dark"] td[style*="color: #ff0000"],
+[data-theme="dark"] .errorText,
+[data-theme="dark"] .required {
+    color: var(--color-error) !important;
+}
+
+/* Black borders */
+[data-theme="dark"] td[style*="border-top-color: #000000"],
+[data-theme="dark"] td[style*="border-right-color: #000000"],
+[data-theme="dark"] td[style*="border-bottom-color: #000000"],
+[data-theme="dark"] td[style*="border-left-color: #000000"] {
+    border-color: var(--border-color) !important;
+}
+
+/* Content container with light border */
+[data-theme="dark"] td.contentContainer,
+[data-theme="dark"] td.contentContainerOld {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-content) !important;
+}
+
+[data-theme="dark"] td.contentContainerOld {
+    border-color: var(--color-error) !important;
+}
+
+/* Download span */
+[data-theme="dark"] .downloadSpan {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-button) !important;
+    color: var(--color-text-white) !important;
+}
+
+/* Add to list box */
+[data-theme="dark"] .addToListListBox {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-input) !important;
+}
+
+/* Even/odd div rows */
+[data-theme="dark"] .evenDivRow {
+    background-color: var(--bg-table-even) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .oddDivRow {
+    background-color: var(--bg-table-odd) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* ============================================
+   PAGER STYLES
+   ============================================ */
+
+[data-theme="dark"] .pager {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .pager a:link,
+[data-theme="dark"] .pager a:visited {
+    color: var(--color-link) !important;
+}
+
+/* ============================================
+   SORTABLE TABLE ARROWS
+   ============================================ */
+
+[data-theme="dark"] img[src*="downward.gif"],
+[data-theme="dark"] img[src*="upward.gif"],
+[data-theme="dark"] img[src*="nosort.gif"] {
+    filter: invert(1) !important;
+}
+
+/* ============================================
+   SECONDARY TABS (sub-navigation under main tabs)
+   ============================================ */
+
+[data-theme="dark"] #header ul#secondary li a {
+    border-color: var(--border-color-light) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #header ul#secondary li a:hover {
+    color: var(--color-link) !important;
+}
+
+[data-theme="dark"] #header ul#secondary li span {
+    border-color: var(--border-color-light) !important;
+    color: var(--color-text-secondary) !important;
+}
+
+/* ============================================
+   QUICK SEARCH BLOCK
+   ============================================ */
+
+[data-theme="dark"] #quickSearchBlock {
+    background-color: var(--bg-content) !important;
+    background-image: none !important;
+}
+
+[data-theme="dark"] #quickSearchBlock span.quickSearchLabel {
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   MRU (Most Recently Used) PANEL
+   ============================================ */
+
+[data-theme="dark"] #MRUPanel {
+    background-color: var(--bg-content) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] #MRUBlock {
+    background-color: var(--bg-content) !important;
+    background-image: none !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #MRUBlock span.MRUTitle {
+    color: var(--color-orange) !important;
+}
+
+[data-theme="dark"] #MRUBlock a {
+    color: var(--color-link) !important;
+}
+
+[data-theme="dark"] #MRUBlock a:hover {
+    color: var(--color-link-hover) !important;
+}
+
+/* ============================================
+   INPUT BOXES (general text inputs)
+   ============================================ */
+
+[data-theme="dark"] .inputbox {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .inputbox:focus {
+    border-color: var(--color-primary) !important;
+    background-color: var(--bg-highlight) !important;
+}
+
+/* ============================================
+   QUICK SEARCH BOX
+   ============================================ */
+
+[data-theme="dark"] .quickSearchBox {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] .quickSearchBox:focus {
+    border-color: var(--color-primary) !important;
+    background-color: var(--bg-highlight) !important;
+}
+
+/* ============================================
+   SELECT BOXES
+   ============================================ */
+
+[data-theme="dark"] .selectBox {
+    border-color: var(--border-color) !important;
+    background-color: var(--bg-input) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   SORTABLE TABLE HEADERS
+   ============================================ */
+
+[data-theme="dark"] table.sortable th,
+[data-theme="dark"] table.sortablepair th,
+[data-theme="dark"] table.notsortable th {
+    background-color: var(--bg-hover) !important;
+    background-image: none !important;
+    color: var(--color-text) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] table.sortable th a:link,
+[data-theme="dark"] table.sortable th a:visited,
+[data-theme="dark"] table.sortablepair th a:link,
+[data-theme="dark"] table.sortablepair th a:visited,
+[data-theme="dark"] table.notsortable th a:link,
+[data-theme="dark"] table.notsortable th a:visited {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] table.sortable th a:hover,
+[data-theme="dark"] table.sortablepair th a:hover,
+[data-theme="dark"] table.notsortable th a:hover {
+    color: var(--color-link) !important;
+}
+
+/* ============================================
+   SEARCH TABLE
+   ============================================ */
+
+[data-theme="dark"] table.searchTable {
+    background-color: var(--bg-content) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] table.searchTable td,
+[data-theme="dark"] table.searchTable th {
+    border-color: var(--border-color) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
+   SELECT ALL CHECKBOX
+   ============================================ */
+
+[data-theme="dark"] input.selectAll {
+    accent-color: var(--color-primary) !important;
+}
+
+/* ============================================
+   SORT HEADERS
+   ============================================ */
+
+[data-theme="dark"] a.sortheader:link,
+[data-theme="dark"] a.sortheader:visited {
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] a.sortheader:hover {
+    color: var(--color-link) !important;
+}
+
+/* ============================================
+   RECENT SEARCH RESULTS
+   ============================================ */
+
+[data-theme="dark"] #searchRecent,
+[data-theme="dark"] .recentSearchResultsHidden {
+    background-color: var(--bg-form) !important;
+    color: var(--color-text) !important;
+}
+
+[data-theme="dark"] #searchSaved,
+[data-theme="dark"] .savedSearchResultsHidden {
+    background-color: var(--bg-form) !important;
+    color: var(--color-text) !important;
+}
+
+/* ============================================
    PRINT STYLES (keep light for printing)
    ============================================ */
 
